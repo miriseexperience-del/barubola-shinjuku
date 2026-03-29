@@ -2,127 +2,680 @@
 <html lang="ja">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MIRISE EXPERIENCE</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BARUBOLA SHINJUKU</title>
+    <meta name="description" content="BARUBOLA SHINJUKU" />
+    <link rel="icon" type="image/jpeg" href="icon.jpg" />
+    <link rel="apple-touch-icon" href="icon.jpg" />
+    <style>
+        :root {
+            --bg: #070708;
+            --panel: rgba(255, 255, 255, 0.04);
+            --panel-border: rgba(212, 175, 55, 0.24);
+            --gold: #d4af37;
+            --gold-strong: #f0d36d;
+            --text: #f4efe5;
+            --muted: #c7bead;
+            --line: rgba(255, 255, 255, 0.08);
+            --shadow: 0 14px 40px rgba(0, 0, 0, 0.42);
+            --radius: 20px;
+            --max: 1180px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top right, rgba(212, 175, 55, 0.10), transparent 30%),
+                radial-gradient(circle at top left, rgba(255, 255, 255, 0.04), transparent 22%),
+                linear-gradient(180deg, #060607 0%, #0c0c10 45%, #09090b 100%);
+            line-height: 1.7;
+            letter-spacing: 0.02em;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            width: min(92%, var(--max));
+            margin: 0 auto;
+        }
+
+        .opening-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: openingFadeOut 1s ease 2.8s forwards;
+        }
+
+        .opening-screen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes openingFadeOut {
+            0% {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            100% {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+            }
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(14px);
+            background: rgba(8, 8, 10, 0.74);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .header-inner {
+            min-height: 74px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand img {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            box-shadow: 0 0 18px rgba(212, 175, 55, 0.18);
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .brand-title {
+            font-size: 1rem;
+            color: var(--gold);
+            letter-spacing: 0.18em;
+            font-weight: 800;
+        }
+
+        .brand-sub {
+            font-size: 0.78rem;
+            color: var(--muted);
+        }
+
+        .menu-btn {
+            display: none;
+            background: transparent;
+            border: 1px solid rgba(212, 175, 55, 0.38);
+            color: var(--gold);
+            border-radius: 10px;
+            padding: 10px 12px;
+            cursor: pointer;
+        }
+
+        .nav-wrap {
+            position: relative;
+        }
+
+        .nav {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            font-size: 0.92rem;
+            color: var(--muted);
+            transition: 0.2s ease;
+        }
+
+        .nav a:hover {
+            color: var(--gold);
+        }
+
+        .hero {
+            padding: 92px 0 64px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            color: var(--gold);
+            font-size: 0.8rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 4.4vw, 4.8rem);
+            line-height: 1.1;
+            letter-spacing: 0.06em;
+            font-weight: 900;
+            margin-bottom: 18px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        .hero p {
+            color: var(--muted);
+            max-width: 760px;
+            margin: 0 auto 28px;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            justify-content: center;
+        }
+
+        .btn {
+            min-height: 50px;
+            padding: 0 22px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            font-weight: 800;
+            transition: 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #f3d97d 0%, #b8860b 100%);
+            color: #111;
+            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.24);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 28px rgba(212, 175, 55, 0.30);
+        }
+
+        .btn-secondary {
+            border-color: rgba(212, 175, 55, 0.34);
+            color: var(--gold);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(212, 175, 55, 0.08);
+        }
+
+        .hero-image-wrap {
+            margin-top: 22px;
+        }
+
+        .hero-main-image {
+            width: 100%;
+            max-width: 980px;
+            margin: 0 auto;
+            border-radius: 28px;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.18);
+            box-shadow: var(--shadow);
+            background: #121216;
+        }
+
+        .hero-main-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        section {
+            padding: 58px 0;
+        }
+
+        .section-head {
+            margin-bottom: 24px;
+        }
+
+        .section-head .mini {
+            display: inline-block;
+            color: var(--gold);
+            font-size: 0.78rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .section-head h2 {
+            font-size: clamp(1.55rem, 2.8vw, 2.4rem);
+            margin-bottom: 8px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--panel-border);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .card h3 {
+            font-size: 1.08rem;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .card p,
+        .card li {
+            color: var(--muted);
+            font-size: 0.96rem;
+        }
+
+        .list {
+            list-style: none;
+            display: grid;
+            gap: 12px;
+        }
+
+        .list li {
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 12px;
+        }
+
+        .list li:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .highlight {
+            color: var(--gold);
+            font-weight: 800;
+        }
+
+        .link-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            min-height: 78px;
+        }
+
+        .link-card span {
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        .link-card strong {
+            display: block;
+            color: var(--text);
+            margin-bottom: 4px;
+            font-size: 1rem;
+        }
+
+        .link-arrow {
+            color: var(--gold);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .cta-box {
+            background:
+                linear-gradient(135deg, rgba(212, 175, 55, 0.12), rgba(255, 255, 255, 0.04)),
+                rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--panel-border);
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: var(--shadow);
+        }
+
+        .footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 34px 0 48px;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 960px) {
+
+            .grid-2,
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding-top: 68px;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .menu-btn {
+                display: inline-flex;
+            }
+
+            .nav {
+                display: none;
+                position: absolute;
+                right: 0;
+                top: calc(100% + 10px);
+                min-width: 220px;
+                flex-direction: column;
+                background: rgba(10, 10, 12, 0.96);
+                border: 1px solid rgba(212, 175, 55, 0.24);
+                border-radius: 14px;
+                padding: 14px;
+                box-shadow: var(--shadow);
+            }
+
+            .nav.show {
+                display: flex;
+            }
+
+            .header-inner {
+                min-height: 66px;
+            }
+
+            .brand-title {
+                font-size: 0.92rem;
+            }
+
+            .hero h1 {
+                line-height: 1.16;
+            }
+
+            .opening-screen img {
+                object-position: center;
+            }
+        }
+    </style>
 </head>
 
 <body>
-
-    <!-- ★ 1秒だけ全画面ローディング画像 -->
-    <div id="splash">
-        <img src="ogp.jpg" alt="">
+    <div class="opening-screen" id="openingScreen">
+        <img src="opening.jpg" alt="BARUBOLA OPENING">
     </div>
 
-    <!-- ★ 固定ヘッダー（上のメニュー） -->
-    <header class="header">
-        <div class="logo">MIRISE EXPERIENCE</div>
-        <nav class="menu">
-            <a href="#profile">PROFILE</a>
-            <a href="#about">ABOUT</a>
-            <a href="#philosophy">PHILOSOPHY</a>
-            <a href="#message">MESSAGE</a>
-            <a href="#service">SERVICE</a>
-            <a href="#story">STORY</a>
-            <a href="#contact">CONTACT</a>
-        </nav>
+    <header class="site-header">
+        <div class="container header-inner">
+            <div class="brand">
+                <img src="icon.jpg" alt="BARUBOLA ICON">
+                <div class="brand-text">
+                    <div class="brand-title">BARUBOLA SHINJUKU</div>
+                    <div class="brand-sub">Premium Guide Page</div>
+                </div>
+            </div>
+
+            <div class="nav-wrap">
+                <button class="menu-btn" id="menuBtn" aria-label="メニューを開く">MENU</button>
+                <nav class="nav" id="nav">
+                    <a href="#top">TOP</a>
+                    <a href="#info">INFO</a>
+                    <a href="#access">ACCESS</a>
+                    <a href="#links">LINK</a>
+                    <a href="#official">OFFICIAL</a>
+                </nav>
+            </div>
+        </div>
     </header>
 
-    <!-- ========= PROFILE（最初に表示） ========= -->
-    <section id="profile" class="section fade-section">
+    <main id="top">
+        <section class="hero">
+            <div class="container hero-grid">
+                <div>
+                    <div style="text-align:center;">
+                        <span class="eyebrow">BARUBOLA PREMIUM START</span>
+                    </div>
+                    <h1>BARUBOLA<br>SHINJUKU</h1>
+                    <p>
+                        新宿で長く愛され続けるBARUBOLAの情報を、見やすくまとめたご案内ページです。
+                    </p>
 
-        <h2>PROFILE</h2>
+                    <div class="hero-actions">
+                        <a href="https://www.cityheaven.net/tokyo/A1304/A130401/barubora/" target="_blank"
+                            rel="noopener noreferrer" class="btn btn-primary">詳細を見る</a>
+                        <a href="#links" class="btn btn-secondary">SNS・各種リンク</a>
+                    </div>
 
-        <img src="kanta.jpg" class="profile-img">
+                    <div class="hero-image-wrap">
+                        <div class="hero-main-image">
+                            <img src="main.jpg" alt="バルボラ新宿">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <div class="profile-name">KANTA</div>
+        <section id="info">
+            <div class="container">
+                <div class="section-head">
+                    <span class="mini">INFO</span>
+                    <h2>店舗情報</h2>
+                </div>
 
-        <p class="profile-text">
-            人の本音と向き合い、“未来の設計” を支援するブランドクリエイター。<br>
-            MIRISE EXPERIENCE 主宰。
-        </p>
-    </section>
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>基本情報</h3>
+                        <ul class="list">
+                            <li><span class="highlight">店舗名：</span> BARUBOLA SHINJUKU</li>
+                            <li><span class="highlight">電話番号：</span> <a href="tel:0332050011">03-3205-0011</a></li>
+                            <li><span class="highlight">営業時間：</span> 6時〜24時</li>
+                            <li><span class="highlight">交通情報：</span> JR新宿駅より徒歩8分</li>
+                        </ul>
+                    </div>
 
-    <!-- ========= ABOUT ========= -->
-    <section id="about" class="section fade-section">
-        <h2>ABOUT</h2>
-        <p>
-            かつて夜の世界で働き、多くの人の人生と向き合ってきた。<br>
-            そして今、“人の本音” と “未来” を紡ぐための挑戦として、<br>
-            MIRISE EXPERIENCE を立ち上げた。
-        </p>
-    </section>
+                    <div class="card">
+                        <h3>所在地</h3>
+                        <ul class="list">
+                            <li><span class="highlight">住所：</span> 東京都新宿区歌舞伎町1-24-3浜野産業ビル5階</li>
+                            <li><span class="highlight">エリア：</span> 新宿・歌舞伎町</li>
+                            <li><span class="highlight">在籍・ご予約・詳細など：</span> <a
+                                    href="https://www.cityheaven.net/tokyo/A1304/A130401/barubora/" target="_blank"
+                                    rel="noopener noreferrer">CityHeaven</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <!-- ========= PHILOSOPHY ========= -->
-    <section id="philosophy" class="section fade-section">
-        <h2>PHILOSOPHY</h2>
-        <p>
-            人生は、書き換えられる。<br>
-            人はいつからでも変われる。<br>
-            本音で生きる者だけが未来を掴む。
-        </p>
-    </section>
+        <section id="access">
+            <div class="container">
+                <div class="section-head">
+                    <span class="mini">ACCESS</span>
+                    <h2>アクセス</h2>
+                </div>
 
-    <!-- ========= MESSAGE ========= -->
-    <section id="message" class="section fade-section">
-        <h2>MESSAGE</h2>
-        <p>
-            あなたの未来は、誰のものでもない。<br>
-            過去がどうであれ、望む方向へ舵を切るのは今日からでいい。<br>
-            MIRISE EXPERIENCE は、あなたが “本来の自分” に戻り、<br>
-            未来を創る旅の伴走者でありたい。
-        </p>
-    </section>
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>ご来店前の確認</h3>
+                        <ul class="list">
+                            <li>JR新宿駅より徒歩8分</li>
+                            <li>東京都新宿区歌舞伎町1-24-3浜野産業ビル5階</li>
+                            <li>営業時間は6時〜24時です</li>
+                            <li>在籍・ご予約・詳細などは公式掲載ページをご確認ください</li>
+                        </ul>
+                    </div>
 
-    <!-- ========= SERVICE ========= -->
-    <section id="service" class="section fade-section">
-        <h2>SERVICE</h2>
+                    <div class="card">
+                        <h3>公式掲載ページ</h3>
+                        <p style="margin-bottom:16px;">
+                            在籍・ご予約・詳細などは下記からご確認ください。
+                        </p>
+                        <a href="https://www.cityheaven.net/tokyo/A1304/A130401/barubora/" target="_blank"
+                            rel="noopener noreferrer" class="btn btn-primary">
+                            CityHeavenを見る
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <p>🥂 MIRISE セッション（人生相談）<br>
-            30分：¥3,000 / 60分：¥5,000〜</p>
+        <section id="links">
+            <div class="container">
+                <div class="section-head">
+                    <span class="mini">LINK</span>
+                    <h2>SNS・各種リンク</h2>
+                </div>
 
-        <p>🚀 未来デザインコーチング<br>
-            月額プラン：¥10,000〜</p>
+                <div class="grid-3">
+                    <a class="card link-card" href="https://www.instagram.com/barubola_shinjuku/" target="_blank"
+                        rel="noopener noreferrer">
+                        <div>
+                            <strong>Instagram</strong>
+                            <span>@barubola_shinjuku</span>
+                        </div>
+                        <div class="link-arrow">↗</div>
+                    </a>
 
-        <p>📘 ストーリー制作サポート<br>
-            応相談</p>
+                    <a class="card link-card" href="https://www.youtube.com/@barubola_shinjuku" target="_blank"
+                        rel="noopener noreferrer">
+                        <div>
+                            <strong>YouTube</strong>
+                            <span>@barubola_shinjuku</span>
+                        </div>
+                        <div class="link-arrow">↗</div>
+                    </a>
 
-        <a class="btn" href="https://coconala.com/users/5602386" target="_blank">
-            ココナラを見る
-        </a>
-    </section>
+                    <a class="card link-card" href="https://twitter.com/shin_barubola" target="_blank"
+                        rel="noopener noreferrer">
+                        <div>
+                            <strong>X</strong>
+                            <span>@shin_barubola</span>
+                        </div>
+                        <div class="link-arrow">↗</div>
+                    </a>
 
-    <!-- ========= STORY ========= -->
-    <section id="story" class="section fade-section">
-        <h2>STORY</h2>
-        <p>
-            人生の深い部分を物語として届ける。<br>
-            KANTA のストーリー作品は note にて販売中。
-        </p>
+                    <a class="card link-card" href="https://www.tiktok.com/@barubola.shinjuku" target="_blank"
+                        rel="noopener noreferrer">
+                        <div>
+                            <strong>TikTok</strong>
+                            <span>@barubola.shinjuku</span>
+                        </div>
+                        <div class="link-arrow">↗</div>
+                    </a>
 
-        <a class="btn" href="https://note.com/mirise_exp" target="_blank">
-            note を見る
-        </a>
-    </section>
+                    <a class="card link-card" href="https://line.me/ti/p/gPNXpPEN3m" target="_blank"
+                        rel="noopener noreferrer">
+                        <div>
+                            <strong>求人LINE</strong>
+                            <span>LINEで確認する</span>
+                        </div>
+                        <div class="link-arrow">↗</div>
+                    </a>
 
-    <!-- ========= CONTACT ========= -->
-    <section id="contact" class="section fade-section">
-        <h2>CONTACT</h2>
-        <p>SNS またはメールよりお気軽にご連絡ください。</p>
+                    <a class="card link-card" href="https://www.cityheaven.net/tokyo/A1304/A130401/barubora/"
+                        target="_blank" rel="noopener noreferrer">
+                        <div>
+                            <strong>在籍・ご予約・詳細など</strong>
+                            <span>CityHeaven</span>
+                        </div>
+                        <div class="link-arrow">↗</div>
+                    </a>
+                </div>
+            </div>
+        </section>
 
-        <div class="contact-links">
-            <a href="https://instagram.com/kanta_mirise" target="_blank">Instagram</a>
-            <a href="https://x.com/mirise_kanta" target="_blank">X（Twitter）</a>
-            <a href="https://www.tiktok.com/@kanta_mirise?_r=1&_t=ZS-92A1FACnEVL" target="_blank">TikTok</a>
-            <a href="https://youtube.com/@kanta-0930?si=QxAjyCn2fjL_v3YG" target="_blank">YouTube</a>
-            <a href="https://coconala.com/users/5602386" target="_blank">Coconala</a>
-            <a href="mailto:mirise.experience@gmail.com">Mail</a>
-            <a href="https://note.com/mirise_exp" target="_blank">note</a>
+        <section id="official">
+            <div class="container">
+                <div class="cta-box">
+                    <div class="section-head" style="margin-bottom:18px;">
+                        <span class="mini">OFFICIAL</span>
+                        <h2>在籍・ご予約・詳細などはこちら</h2>
+                    </div>
+
+                    <div class="hero-actions">
+                        <a href="https://www.cityheaven.net/tokyo/A1304/A130401/barubora/" target="_blank"
+                            rel="noopener noreferrer" class="btn btn-primary">公式掲載ページへ進む</a>
+                        <a href="tel:0332050011" class="btn btn-secondary">電話する</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div>© 2026 BARUBOLA SHINJUKU</div>
+            <div></div>
         </div>
-    </section>
+    </footer>
 
-    <script src="script.js"></script>
+    <script>
+        const menuBtn = document.getElementById("menuBtn");
+        const nav = document.getElementById("nav");
+        const openingScreen = document.getElementById("openingScreen");
+
+        menuBtn.addEventListener("click", () => {
+            nav.classList.toggle("show");
+        });
+
+        document.querySelectorAll(".nav a").forEach(link => {
+            link.addEventListener("click", () => {
+                nav.classList.remove("show");
+            });
+        });
+
+        setTimeout(() => {
+            openingScreen.style.display = "none";
+        }, 4000);
+    </script>
 </body>
 
 </html>
