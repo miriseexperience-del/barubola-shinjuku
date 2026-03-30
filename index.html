@@ -4,416 +4,885 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BARUBOLA SHINJUKU</title>
+  <meta name="description" content="BARUBOLA SHINJUKU 公式ページ。新宿・歌舞伎町。店舗情報、アクセス、在籍・ご予約・詳細など。" />
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
     }
 
-    html {
-      scroll-behavior: smooth;
+    :root {
+      --bg: #070707;
+      --bg2: #120d12;
+      --gold: #d8b56a;
+      --gold-soft: #f2d8a1;
+      --pink: #f5bfd3;
+      --pink-soft: rgba(255, 191, 211, 0.18);
+      --white: #ffffff;
+      --text: rgba(255,255,255,0.88);
+      --muted: rgba(255,255,255,0.62);
+      --glass: rgba(255,255,255,0.08);
+      --border: rgba(255,255,255,0.12);
+      --shadow: 0 10px 35px rgba(0,0,0,0.35);
+      --radius: 22px;
     }
 
     body {
-      font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+      font-family:
+        "Hiragino Kaku Gothic ProN",
+        "Hiragino Sans",
+        "Yu Gothic",
+        "Noto Sans JP",
+        sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(255, 196, 210, 0.12), transparent 20%),
-        radial-gradient(circle at top right, rgba(255, 215, 120, 0.10), transparent 18%),
-        linear-gradient(180deg, #0b0a0d 0%, #151217 45%, #1d181c 100%);
-      color: #f9f2f4;
+        radial-gradient(circle at top left, rgba(255,192,203,0.10), transparent 30%),
+        radial-gradient(circle at top right, rgba(216,181,106,0.10), transparent 30%),
+        linear-gradient(180deg, #090909 0%, #120d12 40%, #0a0a0a 100%);
+      color: var(--white);
       overflow-x: hidden;
-      line-height: 1.7;
       position: relative;
-      min-height: 100vh;
     }
 
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .sakura-wrap {
+    body::before {
+      content: "";
       position: fixed;
       inset: 0;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(255,220,235,0.08), transparent 18%),
+        radial-gradient(circle at 80% 15%, rgba(255,210,230,0.06), transparent 20%),
+        radial-gradient(circle at 50% 60%, rgba(216,181,106,0.05), transparent 30%);
       pointer-events: none;
+      z-index: -2;
+    }
+
+    .sakura-layer {
+      position: fixed;
+      inset: 0;
       overflow: hidden;
-      z-index: 0;
+      pointer-events: none;
+      z-index: -1;
     }
 
     .petal {
       position: absolute;
-      top: -12vh;
+      top: -10vh;
       width: 14px;
-      height: 14px;
-      background: radial-gradient(circle at 30% 30%, #fff5f8 0%, #ffc9da 45%, #f39fbd 100%);
+      height: 10px;
+      background: linear-gradient(135deg, rgba(255,221,233,0.9), rgba(255,182,193,0.55));
       border-radius: 70% 30% 70% 30%;
-      opacity: 0.7;
-      animation: sakuraFall linear infinite;
-      box-shadow: 0 0 10px rgba(255, 197, 220, 0.18);
+      filter: blur(0.3px);
+      opacity: 0.75;
+      animation: fall linear infinite;
     }
 
     .petal::after {
       content: "";
       position: absolute;
-      width: 8px;
-      height: 8px;
-      right: -2px;
-      top: 3px;
-      background: rgba(255,255,255,0.24);
-      border-radius: 50%;
+      inset: 0;
+      border-radius: inherit;
+      background: rgba(255,255,255,0.18);
+      transform: translate(-2px, -2px);
+      opacity: 0.35;
     }
 
-    @keyframes sakuraFall {
+    @keyframes fall {
       0% {
-        transform: translate3d(0, -10vh, 0) rotate(0deg);
+        transform: translate3d(0, 0, 0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.8;
       }
       100% {
-        transform: translate3d(120px, 120vh, 0) rotate(360deg);
+        transform: translate3d(120px, 115vh, 0) rotate(360deg);
+        opacity: 0;
       }
     }
 
-    .site-wrap {
-      position: relative;
-      z-index: 1;
-      padding-bottom: 60px;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(45, 40, 46, 0.92);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255, 219, 130, 0.15);
-    }
-
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 16px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      min-width: 0;
-    }
-
-    .brand-icon {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      border: 2px solid rgba(255, 212, 229, 0.35);
-      background: rgba(255,255,255,0.03);
-      object-fit: cover;
-      box-shadow: 0 0 18px rgba(255, 210, 234, 0.10);
-    }
-
-    .brand-text h1 {
-      font-size: clamp(1.5rem, 3vw, 2.3rem);
-      line-height: 1.15;
-      letter-spacing: 0.12em;
-      color: #f3d171;
-      font-weight: 800;
-    }
-
-    .brand-text p {
-      color: #ead8dc;
-      font-size: 0.95rem;
-      margin-top: 4px;
-    }
-
-    .menu-btn {
-      border: 1px solid rgba(255, 210, 230, 0.28);
-      color: #f6dbe5;
-      padding: 14px 20px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.03);
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .hero {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 28px 16px 18px;
-    }
-
-    .hero-box {
-      position: relative;
-      overflow: hidden;
-      border-radius: 28px;
-      min-height: 320px;
-      display: flex;
-      align-items: end;
-      padding: 28px;
+    .opening {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
       background:
-        linear-gradient(180deg, rgba(10, 8, 10, 0.18), rgba(10, 8, 10, 0.70)),
-        url("main.jpg") center center / cover no-repeat;
-      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
-      border: 1px solid rgba(255, 220, 130, 0.12);
+        linear-gradient(135deg, rgba(0,0,0,0.90), rgba(26,16,21,0.92)),
+        #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: openingFadeOut 1.2s ease 3.2s forwards;
     }
 
-    .hero-box::after {
+    .opening::before {
       content: "";
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 20% 18%, rgba(255, 196, 220, 0.14), transparent 20%),
-        radial-gradient(circle at 80% 15%, rgba(255, 218, 120, 0.10), transparent 18%);
+        radial-gradient(circle at center, rgba(255,220,230,0.16), transparent 30%),
+        radial-gradient(circle at center, rgba(216,181,106,0.12), transparent 55%);
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+
+    .opening-inner {
+      width: min(92vw, 520px);
+      aspect-ratio: 1 / 1.25;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: openingZoom 2.2s ease;
+    }
+
+    .opening-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 28px;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.08),
+        0 0 40px rgba(245,191,211,0.16),
+        0 0 70px rgba(216,181,106,0.12),
+        0 25px 60px rgba(0,0,0,0.42);
+    }
+
+    .opening-title {
+      position: absolute;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 32px);
+      text-align: center;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(10,10,10,0.35);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.10);
+      letter-spacing: 0.18em;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.92);
+    }
+
+    @keyframes openingZoom {
+      0% {
+        transform: scale(1.08);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulseGlow {
+      0%,100% { opacity: 0.8; }
+      50% { opacity: 1; }
+    }
+
+    @keyframes openingFadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 24px 0 90px;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 0 40px;
+    }
+
+    .hero-card {
+      width: 100%;
+      position: relative;
+      border-radius: 34px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.03),
+        0 25px 60px rgba(0,0,0,0.42);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 36px;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.10), rgba(0,0,0,0.68)),
+        url("main.jpg") center center / cover no-repeat;
+    }
+
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top right, rgba(255,208,226,0.16), transparent 22%),
+        radial-gradient(circle at bottom left, rgba(216,181,106,0.14), transparent 28%),
+        linear-gradient(180deg, rgba(9,9,9,0.06), rgba(9,9,9,0.52));
       pointer-events: none;
+    }
+
+    .hero-badge {
+      position: absolute;
+      top: 22px;
+      left: 22px;
+      z-index: 2;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(20,20,20,0.40);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: var(--gold-soft);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
     }
 
     .hero-content {
       position: relative;
-      z-index: 1;
-      max-width: 700px;
+      z-index: 2;
+      width: min(760px, 100%);
+      padding: 26px;
+      border-radius: 26px;
+      background: linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.46));
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: var(--shadow);
     }
 
-    .hero-sub {
-      color: #f6c8d8;
-      font-size: 0.9rem;
-      letter-spacing: 0.24em;
-      margin-bottom: 10px;
-    }
-
-    .hero-title {
-      font-size: clamp(2rem, 4vw, 3.4rem);
-      font-weight: 800;
-      color: #fff8fb;
-      margin-bottom: 12px;
-      line-height: 1.2;
-    }
-
-    .hero-desc {
-      color: #f3e5ea;
-      font-size: 1rem;
-    }
-
-    .cards {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 6px 16px 0;
-      display: grid;
-      gap: 24px;
-    }
-
-    .card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
-      border: 1px solid rgba(255, 223, 135, 0.12);
-      border-radius: 30px;
-      padding: 28px 24px;
-      box-shadow: 0 18px 45px rgba(0,0,0,0.22);
-      backdrop-filter: blur(8px);
-    }
-
-    .card-title {
-      color: #fff4f7;
-      font-size: 1.5rem;
-      font-weight: 800;
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
       margin-bottom: 18px;
+    }
+
+    .logo-row img {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      object-fit: cover;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.08),
+        0 10px 24px rgba(0,0,0,0.28);
+    }
+
+    .mini-label {
+      display: inline-block;
+      font-size: 0.74rem;
+      letter-spacing: 0.24em;
+      color: rgba(255,255,255,0.72);
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 4.3rem);
+      line-height: 1.05;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      margin-bottom: 12px;
+      text-shadow: 0 8px 30px rgba(0,0,0,0.35);
+    }
+
+    .hero-copy {
+      font-size: clamp(0.98rem, 2vw, 1.1rem);
+      line-height: 1.95;
+      color: var(--text);
+      max-width: 54ch;
+      margin-bottom: 24px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      min-width: 170px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      transition: 0.28s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #f4d89b, #c89a3f);
+      color: #111;
+      box-shadow: 0 10px 24px rgba(200,154,63,0.22);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 35px rgba(200,154,63,0.28);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      border-color: rgba(255,255,255,0.16);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.12);
+    }
+
+    .section {
+      margin-top: 34px;
+      position: relative;
+    }
+
+    .section-card {
+      position: relative;
+      padding: 28px;
+      border-radius: var(--radius);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+    }
+
+    .section-card::before {
+      content: "";
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 140px;
+      height: 140px;
+      background: radial-gradient(circle, rgba(255,210,230,0.14), transparent 65%);
+      pointer-events: none;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      font-size: clamp(1.3rem, 2.6vw, 2rem);
+      letter-spacing: 0.08em;
+      color: var(--gold-soft);
+    }
+
+    .section-sub {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 18px;
+    }
+
+    .info-box {
+      padding: 22px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .info-box h3 {
+      font-size: 1.02rem;
+      margin-bottom: 12px;
+      color: #fff;
+      letter-spacing: 0.06em;
     }
 
     .info-list {
       display: grid;
-      gap: 24px;
+      gap: 12px;
     }
 
     .info-item {
-      color: #eadfe2;
-      font-size: 1rem;
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 10px;
+      align-items: start;
+      line-height: 1.8;
+      color: var(--text);
+      font-size: 0.96rem;
     }
 
     .info-item strong {
-      color: #f3cf80;
-      font-size: 1.05rem;
-      margin-right: 8px;
-      font-weight: 800;
+      color: var(--gold-soft);
+      font-weight: 700;
     }
 
-    .subtle {
-      color: #e7d9de;
+    .map-wrap {
+      overflow: hidden;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      min-height: 100%;
+      background: rgba(255,255,255,0.03);
     }
 
-    .official-box {
-      margin-top: 24px;
-      padding: 20px;
-      border-radius: 22px;
-      background: rgba(255, 220, 130, 0.06);
-      border: 1px solid rgba(255, 220, 130, 0.14);
-    }
-
-    .official-label {
-      color: #f3cf80;
-      font-weight: 800;
-      margin-bottom: 8px;
+    .map-wrap iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 360px;
+      border: 0;
       display: block;
+      filter: grayscale(0.1) contrast(1.05);
     }
 
-    .official-name {
-      color: #fff8fb;
-      font-size: 1.1rem;
-      margin-bottom: 14px;
+    .point-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
     }
 
-    .official-btn {
+    .point-card {
+      padding: 22px;
+      border-radius: 20px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: 0.28s ease;
+    }
+
+    .point-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(245,191,211,0.26);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.28);
+    }
+
+    .point-no {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 14px 22px;
+      width: 34px;
+      height: 34px;
       border-radius: 999px;
-      background: linear-gradient(135deg, #f0cf72 0%, #f7b7cf 100%);
-      color: #2a1b1d;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, rgba(244,216,155,0.95), rgba(200,154,63,0.95));
+      color: #111;
       font-weight: 800;
-      box-shadow: 0 10px 24px rgba(247, 183, 207, 0.20);
-    }
-
-    .official-btn:hover {
-      opacity: 0.95;
-      transform: translateY(-1px);
-    }
-
-    .footer {
-      max-width: 1100px;
-      margin: 24px auto 0;
-      padding: 0 16px;
-      color: #bcaeb3;
       font-size: 0.9rem;
-      text-align: center;
     }
 
-    @media (max-width: 768px) {
-      .header-inner {
-        padding: 14px 14px;
-      }
+    .point-card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+      color: #fff;
+    }
 
-      .brand-icon {
-        width: 62px;
-        height: 62px;
-      }
+    .point-card p {
+      color: var(--text);
+      line-height: 1.9;
+      font-size: 0.95rem;
+    }
 
-      .brand-text h1 {
-        font-size: 1.05rem;
-        letter-spacing: 0.08em;
-      }
+    .cta {
+      text-align: center;
+      padding: 36px 24px;
+      border-radius: 26px;
+      background:
+        radial-gradient(circle at center, rgba(255,216,230,0.10), transparent 30%),
+        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: var(--shadow);
+    }
 
-      .brand-text p {
-        font-size: 0.8rem;
-      }
+    .cta h2 {
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+      color: var(--gold-soft);
+    }
 
-      .menu-btn {
-        padding: 12px 16px;
-        font-size: 0.95rem;
-      }
+    .cta p {
+      color: var(--text);
+      line-height: 1.9;
+      margin-bottom: 20px;
+    }
 
+    footer {
+      text-align: center;
+      color: rgba(255,255,255,0.45);
+      padding: 28px 10px 8px;
+      font-size: 0.88rem;
+      line-height: 1.7;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: 0.8s ease;
+    }
+
+    .fade-up.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 920px) {
       .hero {
-        padding: 18px 12px 10px;
+        min-height: auto;
       }
 
-      .hero-box {
-        min-height: 260px;
-        border-radius: 24px;
-        padding: 22px 18px;
+      .hero-visual {
+        min-height: 84vh;
+        padding: 20px;
+        align-items: flex-end;
       }
 
-      .cards {
-        padding: 4px 12px 0;
+      .hero-content {
+        padding: 20px;
       }
 
-      .card {
-        border-radius: 24px;
-        padding: 24px 18px;
+      .info-grid,
+      .point-grid {
+        grid-template-columns: 1fr;
       }
 
       .info-item {
-        font-size: 0.95rem;
+        grid-template-columns: 82px 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        width: min(100% - 16px, 100%);
+        padding: 14px 0 64px;
+      }
+
+      .opening-inner {
+        width: min(90vw, 380px);
+        aspect-ratio: 4 / 5.5;
+      }
+
+      .opening-inner img {
+        object-fit: contain;
+        background: #000;
+      }
+
+      .hero-card {
+        border-radius: 24px;
+      }
+
+      .hero-visual {
+        min-height: 88vh;
+        padding: 16px;
+        background:
+          linear-gradient(180deg, rgba(0,0,0,0.16), rgba(0,0,0,0.74)),
+          url("main.jpg") center center / cover no-repeat;
+      }
+
+      .hero-badge {
+        top: 14px;
+        left: 14px;
+        padding: 8px 11px;
+        font-size: 0.68rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+        letter-spacing: 0.05em;
+      }
+
+      .hero-copy {
+        font-size: 0.92rem;
+        line-height: 1.85;
+      }
+
+      .logo-row img {
+        width: 48px;
+        height: 48px;
+      }
+
+      .btn {
+        width: 100%;
+        min-width: unset;
+        padding: 14px 16px;
+      }
+
+      .section-card {
+        padding: 20px 16px;
+        border-radius: 18px;
+      }
+
+      .section-head {
+        margin-bottom: 16px;
+      }
+
+      .section-title {
+        font-size: 1.2rem;
+      }
+
+      .section-sub {
+        font-size: 0.88rem;
+      }
+
+      .info-box {
+        padding: 18px 14px;
+        border-radius: 16px;
+      }
+
+      .info-item {
+        grid-template-columns: 1fr;
+        gap: 3px;
+        font-size: 0.93rem;
+      }
+
+      .info-item strong {
+        font-size: 0.82rem;
+      }
+
+      .map-wrap iframe {
+        min-height: 280px;
+      }
+
+      .point-card {
+        padding: 18px 14px;
+        border-radius: 16px;
+      }
+
+      .cta {
+        padding: 28px 16px;
+        border-radius: 20px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="sakura-wrap" id="sakuraWrap"></div>
-
-  <div class="site-wrap">
-    <header>
-      <div class="header-inner">
-        <div class="brand">
-          <img src="icon.jpg" alt="BARUBOLA SHINJUKU" class="brand-icon">
-          <div class="brand-text">
-            <h1>BARUBOLA SHINJUKU</h1>
-            <p>Premium Guide Page</p>
-          </div>
-        </div>
-        <div class="menu-btn">MENU</div>
-      </div>
-    </header>
-
-    <section class="hero">
-      <div class="hero-box">
-        <div class="hero-content">
-          <div class="hero-sub">LUXURY × SPRING</div>
-          <div class="hero-title">黒金の高級感に、<br>桜のやわらかさを。</div>
-          <div class="hero-desc">
-            在籍・ご予約・詳細など、来店前に必要な情報を見やすくまとめています。
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="cards">
-      <div class="card">
-        <div class="card-title">店舗情報・アクセス</div>
-        <div class="info-list">
-          <div class="info-item"><strong>店舗名：</strong><span class="subtle">BARUBOLA SHINJUKU</span></div>
-          <div class="info-item"><strong>電話番号：</strong><span class="subtle">03-3205-0011</span></div>
-          <div class="info-item"><strong>営業時間：</strong><span class="subtle">6時〜24時</span></div>
-          <div class="info-item"><strong>エリア：</strong><span class="subtle">新宿・歌舞伎町</span></div>
-          <div class="info-item"><strong>アクセス：</strong><span class="subtle">JR新宿駅より徒歩8分</span></div>
-          <div class="info-item"><strong>住所：</strong><span class="subtle">東京都新宿区歌舞伎町1-24-3 浜野産業ビル5階</span></div>
-          <div class="info-item"><strong>ご来店前の確認：</strong><span class="subtle">在籍・ご予約・詳細などは公式掲載ページをご確認ください</span></div>
-        </div>
-
-        <div class="official-box">
-          <span class="official-label">公式掲載：</span>
-          <div class="official-name">CityHeaven</div>
-          <a href="https://www.cityheaven.net/" target="_blank" rel="noopener noreferrer" class="official-btn">
-            公式掲載ページを見る
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <div class="footer">
-      © BARUBOLA SHINJUKU
+  <div class="opening" id="opening">
+    <div class="opening-inner">
+      <img src="main.jpg" alt="BARUBOLA SHINJUKU opening image" />
+      <div class="opening-title">BARUBOLA SHINJUKU</div>
     </div>
   </div>
 
+  <div class="sakura-layer" id="sakuraLayer"></div>
+
+  <div class="container">
+    <section class="hero fade-up">
+      <div class="hero-card">
+        <div class="hero-visual">
+          <div class="hero-badge">OFFICIAL WEBSITE</div>
+
+          <div class="hero-content">
+            <div class="logo-row">
+              <img src="icon.jpg" alt="BARUBOLA SHINJUKU icon" />
+              <div>
+                <span class="mini-label">KABUKICHO / SHINJUKU</span>
+                <div style="font-size: 0.92rem; color: rgba(255,255,255,0.7); letter-spacing: 0.08em;">
+                  Elegant Space & Spring Mood
+                </div>
+              </div>
+            </div>
+
+            <h1>BARUBOLA<br>SHINJUKU</h1>
+
+            <p class="hero-copy">
+              黒と金の上質さに、やわらかな春の彩りを添えた
+              BARUBOLA SHINJUKU 公式ページ。<br>
+              在籍・ご予約・詳細など、初めての方にもわかりやすくご案内いたします。
+            </p>
+
+            <div class="hero-buttons">
+              <a href="#info" class="btn btn-primary">在籍・ご予約・詳細など</a>
+              <a href="https://www.instagram.com/barubola_shinjuku" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Instagramを見る</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section fade-up" id="info">
+      <div class="section-card">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">SHOP INFO / ACCESS</h2>
+            <p class="section-sub">
+              店舗情報とアクセス情報をひとつにまとめ、迷わず見やすい構成にしています。
+            </p>
+          </div>
+        </div>
+
+        <div class="info-grid">
+          <div class="info-box">
+            <h3>店舗情報</h3>
+            <div class="info-list">
+              <div class="info-item">
+                <strong>店舗名</strong>
+                <span>BARUBOLA SHINJUKU</span>
+              </div>
+              <div class="info-item">
+                <strong>住所</strong>
+                <span>東京都新宿区歌舞伎町1-24-3 浜野産業ビル5階</span>
+              </div>
+              <div class="info-item">
+                <strong>エリア</strong>
+                <span>新宿・歌舞伎町</span>
+              </div>
+              <div class="info-item">
+                <strong>ご案内</strong>
+                <span>在籍・ご予約・詳細などは各種SNSまたは案内ページよりご確認ください。</span>
+              </div>
+              <div class="info-item">
+                <strong>アクセス</strong>
+                <span>新宿駅周辺からアクセスしやすい立地です。駅からのご案内動画やSNS更新も今後掲載しやすい構成です。</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="map-wrap">
+            <iframe
+              src="https://www.google.com/maps?q=東京都新宿区歌舞伎町1-24-3 浜野産業ビル5階&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section fade-up">
+      <div class="section-card">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">BARUBOLA STYLE</h2>
+            <p class="section-sub">
+              高級感だけでなく、見た瞬間に印象へ残る“雰囲気づくり”を大切にしたデザインです。
+            </p>
+          </div>
+        </div>
+
+        <div class="point-grid">
+          <div class="point-card">
+            <div class="point-no">01</div>
+            <h3>上質で落ち着いた世界観</h3>
+            <p>
+              黒を基調にゴールドのアクセントを重ね、重厚感と洗練を演出。
+              第一印象で品のある雰囲気が伝わるように整えています。
+            </p>
+          </div>
+
+          <div class="point-card">
+            <div class="point-no">02</div>
+            <h3>春らしいやわらかさ</h3>
+            <p>
+              桜を思わせる淡い光や浮遊感をプラスし、
+              かたすぎない、やさしく可愛い空気感をほんのり入れています。
+            </p>
+          </div>
+
+          <div class="point-card">
+            <div class="point-no">03</div>
+            <h3>スマホで映える設計</h3>
+            <p>
+              縦画面でも崩れにくく、
+              オープニング画像やメインビジュアルが見やすいように細かく調整しています。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section fade-up">
+      <div class="cta">
+        <h2>FIRST VIEW MATTERS</h2>
+        <p>
+          ただ情報を置くだけではなく、<br>
+          「見た瞬間に少し特別に感じる」ページを目指した構成です。<br>
+          在籍・ご予約・詳細なども、今後さらに拡張しやすい土台になっています。
+        </p>
+        <div class="hero-buttons" style="justify-content:center;">
+          <a href="https://www.instagram.com/barubola_shinjuku" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Instagramへ</a>
+          <a href="#info" class="btn btn-secondary">店舗情報を見る</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © BARUBOLA SHINJUKU<br>
+      東京都新宿区歌舞伎町1-24-3 浜野産業ビル5階
+    </footer>
+  </div>
+
   <script>
-    const sakuraWrap = document.getElementById("sakuraWrap");
+    const sakuraLayer = document.getElementById("sakuraLayer");
 
-    function createPetals() {
-      const count = window.innerWidth < 768 ? 42 : 70;
+    function createPetal() {
+      const petal = document.createElement("span");
+      petal.className = "petal";
 
-      for (let i = 0; i < count; i++) {
-        const petal = document.createElement("span");
-        petal.className = "petal";
-        petal.style.left = Math.random() * 100 + "vw";
-        petal.style.animationDuration = 6 + Math.random() * 6 + "s";
-        petal.style.animationDelay = Math.random() * 8 + "s";
-        petal.style.opacity = 0.35 + Math.random() * 0.45;
-        petal.style.transform = `scale(${0.7 + Math.random() * 0.9}) rotate(${Math.random() * 360}deg)`;
-        sakuraWrap.appendChild(petal);
-      }
+      const left = Math.random() * 100;
+      const duration = 8 + Math.random() * 10;
+      const delay = Math.random() * 6;
+      const size = 8 + Math.random() * 12;
+      const opacity = 0.4 + Math.random() * 0.45;
+
+      petal.style.left = left + "vw";
+      petal.style.width = size + "px";
+      petal.style.height = size * 0.72 + "px";
+      petal.style.animationDuration = duration + "s";
+      petal.style.animationDelay = delay + "s";
+      petal.style.opacity = opacity;
+
+      sakuraLayer.appendChild(petal);
+
+      setTimeout(() => {
+        petal.remove();
+      }, (duration + delay) * 1000);
     }
 
-    createPetals();
+    setInterval(createPetal, 420);
+    for (let i = 0; i < 18; i++) {
+      createPetal();
+    }
+
+    const faders = document.querySelectorAll(".fade-up");
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+        }
+      });
+    }, {
+      threshold: 0.15
+    });
+
+    faders.forEach((el) => observer.observe(el));
+
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.body.style.overflowY = "auto";
+      }, 3400);
+    });
+
+    document.body.style.overflow = "hidden";
   </script>
 </body>
 </html>
