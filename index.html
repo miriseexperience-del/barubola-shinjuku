@@ -9,18 +9,23 @@
   <link rel="apple-touch-icon" href="icon.jpg" />
   <style>
     :root {
-      --bg: #f6f3ef;
-      --bg-soft: #fbf8f5;
-      --ink: #1e2430;
-      --ink-light: #566072;
-      --line: rgba(30, 36, 48, 0.10);
-      --navy: #273449;
-      --navy-deep: #182230;
-      --rose: #a97d86;
-      --rose-soft: #d9c1c7;
-      --pearl: #fffdf9;
-      --card: rgba(255,255,255,0.75);
-      --shadow: 0 18px 45px rgba(23, 28, 38, 0.10);
+      --bg1: #12001f;
+      --bg2: #22003a;
+      --bg3: #080011;
+      --pink: #ff4fd8;
+      --pink-strong: #ff2cc6;
+      --violet: #9f5bff;
+      --blue: #42c8ff;
+      --gold: #ffd86b;
+      --gold-strong: #ffbb00;
+      --white: #fffdfd;
+      --text: #fdf6ff;
+      --muted: #dccce5;
+      --line: rgba(255,255,255,0.12);
+      --glass: rgba(255,255,255,0.08);
+      --glass-strong: rgba(255,255,255,0.12);
+      --shadow: 0 16px 50px rgba(0,0,0,0.35);
+      --shadow-strong: 0 18px 60px rgba(255, 47, 198, 0.22);
       --radius: 24px;
       --max: 1180px;
     }
@@ -37,14 +42,51 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
-      color: var(--ink);
+      color: var(--text);
       background:
-        radial-gradient(circle at 8% 12%, rgba(169,125,134,0.12), transparent 24%),
-        radial-gradient(circle at 92% 18%, rgba(39,52,73,0.08), transparent 20%),
-        linear-gradient(180deg, #fcfaf7 0%, #f4f0eb 48%, #efe8e2 100%);
+        radial-gradient(circle at 15% 15%, rgba(255,79,216,0.18), transparent 20%),
+        radial-gradient(circle at 85% 12%, rgba(66,200,255,0.15), transparent 18%),
+        radial-gradient(circle at 50% 90%, rgba(255,216,107,0.10), transparent 24%),
+        linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 48%, var(--bg3) 100%);
       line-height: 1.75;
       letter-spacing: 0.02em;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::before {
+      background:
+        radial-gradient(circle, rgba(255,255,255,0.18) 0 1px, transparent 1.5px);
+      background-size: 120px 120px;
+      opacity: 0.16;
+      animation: sparkleMove 14s linear infinite;
+    }
+
+    body::after {
+      background:
+        linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.05) 50%, transparent 70%);
+      transform: translateX(-100%);
+      animation: shineSweep 7s linear infinite;
+      opacity: 0.5;
+    }
+
+    @keyframes sparkleMove {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(120px); }
+    }
+
+    @keyframes shineSweep {
+      0% { transform: translateX(-120%); }
+      100% { transform: translateX(120%); }
     }
 
     a {
@@ -61,6 +103,8 @@
     .container {
       width: min(92%, var(--max));
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
     .opening-screen {
@@ -68,8 +112,8 @@
       inset: 0;
       z-index: 9999;
       background:
-        linear-gradient(135deg, rgba(24,34,48,0.96), rgba(42,56,76,0.92)),
-        radial-gradient(circle at center, rgba(255,255,255,0.10), transparent 40%);
+        radial-gradient(circle at center, rgba(255,79,216,0.22), transparent 30%),
+        linear-gradient(135deg, #090010 0%, #1f0031 45%, #0a0015 100%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -84,21 +128,21 @@
       width: 42vw;
       height: 42vw;
       border-radius: 50%;
-      filter: blur(60px);
-      opacity: 0.28;
-      z-index: 0;
+      filter: blur(70px);
+      opacity: 0.34;
+      animation: pulseGlow 4s ease-in-out infinite;
     }
 
     .opening-screen::before {
-      top: -10vw;
+      top: -8vw;
       left: -8vw;
-      background: rgba(217,193,199,0.40);
+      background: rgba(255, 79, 216, 0.45);
     }
 
     .opening-screen::after {
-      bottom: -12vw;
+      bottom: -8vw;
       right: -8vw;
-      background: rgba(255,255,255,0.18);
+      background: rgba(66, 200, 255, 0.34);
     }
 
     .opening-screen img {
@@ -109,6 +153,12 @@
       object-fit: contain;
       object-position: center center;
       background: transparent;
+      filter: drop-shadow(0 0 24px rgba(255,255,255,0.22));
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); opacity: 0.32; }
+      50% { transform: scale(1.12); opacity: 0.46; }
     }
 
     @keyframes openingFadeOut {
@@ -128,12 +178,13 @@
       top: 0;
       z-index: 100;
       backdrop-filter: blur(18px);
-      background: rgba(252,250,247,0.72);
-      border-bottom: 1px solid rgba(30,36,48,0.07);
+      background: rgba(18,0,31,0.62);
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.22);
     }
 
     .header-inner {
-      min-height: 78px;
+      min-height: 76px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -147,12 +198,14 @@
     }
 
     .brand img {
-      width: 50px;
-      height: 50px;
+      width: 52px;
+      height: 52px;
       object-fit: cover;
       border-radius: 50%;
-      border: 1px solid rgba(39,52,73,0.14);
-      box-shadow: 0 10px 24px rgba(39,52,73,0.12);
+      border: 2px solid rgba(255,216,107,0.45);
+      box-shadow:
+        0 0 0 3px rgba(255,79,216,0.14),
+        0 0 28px rgba(255,79,216,0.24);
       background: #fff;
     }
 
@@ -164,24 +217,26 @@
 
     .brand-title {
       font-size: 1rem;
-      color: var(--navy);
-      letter-spacing: 0.16em;
-      font-weight: 800;
+      color: var(--white);
+      letter-spacing: 0.18em;
+      font-weight: 900;
+      text-shadow: 0 0 10px rgba(255,79,216,0.25);
     }
 
     .brand-sub {
       font-size: 0.78rem;
-      color: var(--ink-light);
+      color: var(--muted);
     }
 
     .menu-btn {
       display: none;
-      background: rgba(255,255,255,0.7);
-      border: 1px solid rgba(39,52,73,0.12);
-      color: var(--navy);
+      background: linear-gradient(135deg, rgba(255,79,216,0.22), rgba(66,200,255,0.18));
+      border: 1px solid rgba(255,255,255,0.18);
+      color: var(--white);
       border-radius: 12px;
       padding: 10px 12px;
       cursor: pointer;
+      box-shadow: 0 8px 22px rgba(255,79,216,0.18);
     }
 
     .nav-wrap {
@@ -196,7 +251,7 @@
 
     .nav a {
       font-size: 0.93rem;
-      color: var(--ink-light);
+      color: var(--muted);
       transition: 0.2s ease;
       position: relative;
     }
@@ -207,13 +262,14 @@
       left: 0;
       bottom: -6px;
       width: 0;
-      height: 1.5px;
-      background: linear-gradient(90deg, var(--rose), var(--navy));
+      height: 2px;
+      background: linear-gradient(90deg, var(--pink), var(--gold));
+      box-shadow: 0 0 10px rgba(255,79,216,0.35);
       transition: 0.25s ease;
     }
 
     .nav a:hover {
-      color: var(--navy);
+      color: var(--white);
     }
 
     .nav a:hover::after {
@@ -221,144 +277,200 @@
     }
 
     .hero {
-      padding: 88px 0 68px;
+      padding: 92px 0 72px;
+      position: relative;
     }
 
     .hero-shell {
       position: relative;
       overflow: hidden;
       border-radius: 34px;
-      padding: 42px 28px 30px;
+      padding: 34px;
       background:
-        linear-gradient(135deg, rgba(255,255,255,0.84), rgba(255,255,255,0.55)),
-        linear-gradient(180deg, rgba(217,193,199,0.08), rgba(39,52,73,0.04));
-      border: 1px solid rgba(255,255,255,0.65);
-      box-shadow: var(--shadow);
+        linear-gradient(135deg, rgba(255,255,255,0.11), rgba(255,255,255,0.05)),
+        linear-gradient(135deg, rgba(255,79,216,0.09), rgba(66,200,255,0.08));
+      border: 1px solid rgba(255,255,255,0.16);
+      box-shadow: var(--shadow), var(--shadow-strong);
+      backdrop-filter: blur(18px);
     }
 
     .hero-shell::before {
       content: "";
       position: absolute;
-      top: -120px;
-      right: -90px;
+      top: -100px;
+      left: -70px;
       width: 280px;
       height: 280px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(169,125,134,0.16), transparent 65%);
-      filter: blur(10px);
+      background: radial-gradient(circle, rgba(255,79,216,0.34), transparent 68%);
+      filter: blur(8px);
+      animation: floatGlow 7s ease-in-out infinite;
     }
 
     .hero-shell::after {
       content: "";
       position: absolute;
       bottom: -120px;
-      left: -90px;
+      right: -70px;
       width: 320px;
       height: 320px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(39,52,73,0.10), transparent 68%);
-      filter: blur(12px);
+      background: radial-gradient(circle, rgba(66,200,255,0.22), transparent 68%);
+      filter: blur(8px);
+      animation: floatGlow 9s ease-in-out infinite reverse;
+    }
+
+    @keyframes floatGlow {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-18px); }
     }
 
     .hero-grid {
       position: relative;
       z-index: 1;
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: 1.1fr 0.9fr;
       gap: 28px;
       align-items: center;
     }
 
     .eyebrow {
       display: inline-block;
-      color: var(--rose);
-      font-size: 0.8rem;
-      letter-spacing: 0.24em;
+      color: var(--gold);
+      font-size: 0.82rem;
+      letter-spacing: 0.26em;
       text-transform: uppercase;
       margin-bottom: 16px;
-      font-weight: 700;
+      font-weight: 900;
+      text-shadow: 0 0 14px rgba(255,216,107,0.28);
     }
 
     .hero h1 {
-      font-size: clamp(2.2rem, 4.6vw, 5rem);
-      line-height: 1.06;
-      letter-spacing: 0.08em;
+      font-size: clamp(2.5rem, 5vw, 5.4rem);
+      line-height: 1.02;
+      letter-spacing: 0.07em;
       font-weight: 900;
       margin-bottom: 18px;
-      text-align: center;
-      color: var(--navy-deep);
+      color: var(--white);
+      text-shadow:
+        0 0 14px rgba(255,79,216,0.18),
+        0 0 30px rgba(66,200,255,0.12);
     }
 
     .hero p {
-      color: var(--ink-light);
-      max-width: 760px;
-      margin: 0 auto 28px;
+      color: var(--muted);
+      max-width: 650px;
+      margin-bottom: 28px;
       font-size: 1rem;
-      text-align: center;
     }
 
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 14px;
-      justify-content: center;
     }
 
     .btn {
-      min-height: 52px;
+      min-height: 54px;
       padding: 0 24px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       border-radius: 999px;
-      font-weight: 800;
+      font-weight: 900;
       transition: 0.22s ease;
       border: 1px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 70%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+      transform: skewX(-20deg);
+      transition: 0.5s ease;
+    }
+
+    .btn:hover::before {
+      left: 140%;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, #2a3950 0%, #62718a 100%);
+      background: linear-gradient(135deg, var(--pink-strong) 0%, var(--violet) 55%, var(--blue) 100%);
       color: #fff;
-      box-shadow: 0 12px 26px rgba(39,52,73,0.18);
+      box-shadow:
+        0 12px 26px rgba(255,79,216,0.28),
+        0 0 30px rgba(66,200,255,0.14);
     }
 
     .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 16px 30px rgba(39,52,73,0.24);
+      transform: translateY(-2px) scale(1.01);
     }
 
     .btn-secondary {
-      border-color: rgba(39,52,73,0.16);
-      color: var(--navy);
-      background: rgba(255,255,255,0.58);
+      border-color: rgba(255,255,255,0.18);
+      color: var(--white);
+      background: rgba(255,255,255,0.08);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.16);
     }
 
     .btn-secondary:hover {
-      background: rgba(255,255,255,0.86);
+      background: rgba(255,255,255,0.14);
+      transform: translateY(-2px);
     }
 
-    .hero-image-wrap {
-      margin-top: 22px;
+    .hero-left {
+      position: relative;
+    }
+
+    .hero-note {
+      margin-top: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: var(--white);
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-size: 0.92rem;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.14);
     }
 
     .hero-main-image {
-      width: 100%;
-      max-width: 980px;
-      margin: 0 auto;
-      border-radius: 30px;
-      overflow: hidden;
-      border: 1px solid rgba(39,52,73,0.10);
-      box-shadow: 0 22px 50px rgba(24,34,48,0.14);
-      background: #fff;
       position: relative;
+      width: 100%;
+      border-radius: 32px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.28);
+      background: #160023;
+    }
+
+    .hero-main-image::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.00), rgba(0,0,0,0.16)),
+        linear-gradient(135deg, rgba(255,79,216,0.10), rgba(66,200,255,0.08));
+      pointer-events: none;
+      z-index: 1;
     }
 
     .hero-main-image::after {
       content: "";
       position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(255,255,255,0.00), rgba(24,34,48,0.06));
+      inset: 10px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.14);
       pointer-events: none;
+      z-index: 1;
     }
 
     .hero-main-image img {
@@ -367,28 +479,54 @@
       display: block;
     }
 
+    .floating-badge {
+      position: absolute;
+      right: 18px;
+      bottom: 18px;
+      z-index: 2;
+      background: linear-gradient(135deg, rgba(255,216,107,0.95), rgba(255,187,0,0.95));
+      color: #341500;
+      font-weight: 900;
+      padding: 12px 16px;
+      border-radius: 16px;
+      box-shadow: 0 12px 26px rgba(255,187,0,0.22);
+      font-size: 0.92rem;
+      letter-spacing: 0.04em;
+    }
+
     section {
-      padding: 60px 0;
+      padding: 64px 0;
+      position: relative;
+      z-index: 1;
     }
 
     .section-head {
       margin-bottom: 24px;
+      text-align: center;
     }
 
     .section-head .mini {
       display: inline-block;
-      color: var(--rose);
-      font-size: 0.78rem;
-      letter-spacing: 0.2em;
+      color: var(--gold);
+      font-size: 0.8rem;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       margin-bottom: 10px;
-      font-weight: 700;
+      font-weight: 900;
+      text-shadow: 0 0 10px rgba(255,216,107,0.24);
     }
 
     .section-head h2 {
-      font-size: clamp(1.55rem, 2.8vw, 2.5rem);
+      font-size: clamp(1.7rem, 3vw, 2.7rem);
       margin-bottom: 8px;
-      color: var(--navy-deep);
+      color: var(--white);
+      text-shadow: 0 0 18px rgba(255,79,216,0.12);
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 700px;
+      margin: 0 auto;
     }
 
     .grid-2 {
@@ -404,23 +542,39 @@
     }
 
     .card {
-      background: var(--card);
-      border: 1px solid rgba(255,255,255,0.70);
+      position: relative;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.05)),
+        linear-gradient(180deg, rgba(255,79,216,0.06), rgba(66,200,255,0.04));
+      border: 1px solid rgba(255,255,255,0.16);
       border-radius: var(--radius);
       padding: 26px;
       box-shadow: var(--shadow);
-      backdrop-filter: blur(14px);
+      backdrop-filter: blur(16px);
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,79,216,0.16), transparent 68%);
+      pointer-events: none;
     }
 
     .card h3 {
       font-size: 1.08rem;
-      margin-bottom: 10px;
-      color: var(--navy);
+      margin-bottom: 12px;
+      color: var(--white);
     }
 
     .card p,
     .card li {
-      color: var(--ink-light);
+      color: var(--muted);
       font-size: 0.96rem;
     }
 
@@ -441,26 +595,47 @@
     }
 
     .highlight {
-      color: var(--navy);
-      font-weight: 800;
+      color: var(--gold);
+      font-weight: 900;
+    }
+
+    .info-layout {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .info-stack {
+      display: grid;
+      gap: 22px;
+    }
+
+    .sub-cta {
+      margin-top: 18px;
+      display: flex;
+      justify-content: flex-start;
     }
 
     .map-card {
       padding: 0;
       overflow: hidden;
+      min-height: 100%;
     }
 
     .map-card iframe {
       display: block;
       width: 100%;
-      height: 340px;
+      height: 100%;
+      min-height: 420px;
       border: 0;
+      filter: saturate(1.15) contrast(1.05);
     }
 
     .access-note {
       margin-top: 16px;
       text-align: center;
-      color: var(--ink-light);
+      color: var(--muted);
       font-size: 0.95rem;
     }
 
@@ -469,61 +644,107 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      min-height: 84px;
+      min-height: 90px;
       transition: 0.22s ease;
     }
 
     .link-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 20px 40px rgba(23,28,38,0.12);
+      transform: translateY(-4px);
+      box-shadow:
+        0 24px 48px rgba(0,0,0,0.26),
+        0 0 30px rgba(255,79,216,0.10);
     }
 
     .link-card span {
-      color: var(--ink-light);
+      color: var(--muted);
       font-size: 0.92rem;
     }
 
     .link-card strong {
       display: block;
-      color: var(--navy);
+      color: var(--white);
       margin-bottom: 4px;
       font-size: 1rem;
     }
 
     .link-arrow {
-      color: var(--rose);
-      font-size: 1.1rem;
+      color: var(--gold);
+      font-size: 1.2rem;
       flex-shrink: 0;
+      text-shadow: 0 0 10px rgba(255,216,107,0.24);
+    }
+
+    .official-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      align-items: center;
     }
 
     .cta-box {
       position: relative;
       overflow: hidden;
       background:
-        linear-gradient(135deg, rgba(255,255,255,0.82), rgba(255,255,255,0.58)),
-        linear-gradient(135deg, rgba(169,125,134,0.10), rgba(39,52,73,0.07));
-      border: 1px solid rgba(255,255,255,0.72);
+        linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.05)),
+        linear-gradient(135deg, rgba(255,79,216,0.10), rgba(255,216,107,0.08));
+      border: 1px solid rgba(255,255,255,0.18);
       border-radius: 28px;
       padding: 30px;
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow), var(--shadow-strong);
+      backdrop-filter: blur(16px);
     }
 
     .cta-box::before {
       content: "";
       position: absolute;
       top: -80px;
-      right: -50px;
+      right: -40px;
       width: 220px;
       height: 220px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(169,125,134,0.14), transparent 68%);
+      background: radial-gradient(circle, rgba(255,216,107,0.24), transparent 68%);
+      pointer-events: none;
+    }
+
+    .cta-box p {
+      color: var(--muted);
+      margin-top: 8px;
+      margin-bottom: 22px;
+    }
+
+    .official-side {
+      display: grid;
+      gap: 22px;
+    }
+
+    .mini-card {
+      padding: 22px;
+      border-radius: 22px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.05)),
+        rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: var(--shadow);
+    }
+
+    .mini-card h3 {
+      color: var(--white);
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .mini-card p {
+      color: var(--muted);
+      font-size: 0.94rem;
     }
 
     .footer {
-      border-top: 1px solid rgba(30,36,48,0.08);
+      border-top: 1px solid rgba(255,255,255,0.10);
       padding: 34px 0 48px;
-      color: var(--ink-light);
+      color: var(--muted);
       font-size: 0.9rem;
+      background: rgba(0,0,0,0.12);
+      backdrop-filter: blur(8px);
     }
 
     .footer-inner {
@@ -533,14 +754,15 @@
       flex-wrap: wrap;
     }
 
-    @media (max-width: 960px) {
-      .grid-2,
-      .grid-3 {
+    @media (max-width: 980px) {
+      .hero-grid,
+      .info-layout,
+      .official-wrap {
         grid-template-columns: 1fr;
       }
 
-      .hero {
-        padding-top: 68px;
+      .map-card iframe {
+        min-height: 320px;
       }
     }
 
@@ -556,8 +778,8 @@
         top: calc(100% + 10px);
         min-width: 220px;
         flex-direction: column;
-        background: rgba(255,252,249,0.96);
-        border: 1px solid rgba(39,52,73,0.10);
+        background: rgba(25,0,40,0.95);
+        border: 1px solid rgba(255,255,255,0.16);
         border-radius: 14px;
         padding: 14px;
         box-shadow: var(--shadow);
@@ -576,15 +798,27 @@
       }
 
       .hero-shell {
-        padding: 34px 18px 24px;
+        padding: 22px;
       }
 
       .hero h1 {
-        line-height: 1.14;
+        line-height: 1.08;
       }
 
-      .map-card iframe {
-        height: 300px;
+      .hero-actions {
+        justify-content: center;
+      }
+
+      .floating-badge {
+        right: 12px;
+        bottom: 12px;
+        font-size: 0.84rem;
+        padding: 10px 12px;
+      }
+
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -612,7 +846,7 @@
         <img src="icon.jpg" alt="BARUBOLA ICON">
         <div class="brand-text">
           <div class="brand-title">BARUBOLA SHINJUKU</div>
-          <div class="brand-sub">Private Luxury Guide</div>
+          <div class="brand-sub">Luxury Entertainment Guide</div>
         </div>
       </div>
 
@@ -634,14 +868,12 @@
       <div class="container">
         <div class="hero-shell">
           <div class="hero-grid">
-            <div>
-              <div style="text-align:center;">
-                <span class="eyebrow">SHINJUKU PRIVATE LOUNGE</span>
-              </div>
+            <div class="hero-left">
+              <span class="eyebrow">PREMIUM SHINJUKU ENTERTAINMENT</span>
               <h1>BARUBOLA<br>SHINJUKU</h1>
               <p>
-                派手さではなく、落ち着きと品を大切に。<br>
-                新宿・歌舞伎町で、静かに記憶に残る時間へ。
+                新宿・歌舞伎町で、華やかさと高級感を兼ね備えた時間へ。<br>
+                在籍・ご予約・詳細などを、このページからスムーズにご確認いただけます。
               </p>
 
               <div class="hero-actions">
@@ -649,11 +881,14 @@
                 <a href="#links" class="btn btn-secondary">SNS・各種リンク</a>
               </div>
 
-              <div class="hero-image-wrap">
-                <div class="hero-main-image">
-                  <img src="main.jpg" alt="バルボラ新宿">
-                </div>
+              <div class="hero-note">
+                キラめく歌舞伎町で、ひときわ目を引く上質なご案内ページ
               </div>
+            </div>
+
+            <div class="hero-main-image">
+              <img src="main.jpg" alt="バルボラ新宿">
+              <div class="floating-badge">在籍・ご予約・詳細など掲載中</div>
             </div>
           </div>
         </div>
@@ -665,26 +900,42 @@
         <div class="section-head">
           <span class="mini">INFO</span>
           <h2>店舗情報</h2>
+          <p>ご来店前に必要な情報を、見やすく華やかにまとめています。</p>
         </div>
 
-        <div class="grid-2">
-          <div class="card">
-            <h3>基本情報</h3>
-            <ul class="list">
-              <li><span class="highlight">店舗名：</span> BARUBOLA SHINJUKU</li>
-              <li><span class="highlight">電話番号：</span> <a href="tel:0332050011">03-3205-0011</a></li>
-              <li><span class="highlight">営業時間：</span> 6時〜24時</li>
-              <li><span class="highlight">交通情報：</span> JR新宿駅より徒歩8分</li>
-            </ul>
+        <div class="info-layout">
+          <div class="info-stack">
+            <div class="card">
+              <h3>基本情報</h3>
+              <ul class="list">
+                <li><span class="highlight">店舗名：</span> BARUBOLA SHINJUKU</li>
+                <li><span class="highlight">電話番号：</span> <a href="tel:0332050011">03-3205-0011</a></li>
+                <li><span class="highlight">営業時間：</span> 6時〜24時</li>
+                <li><span class="highlight">交通情報：</span> JR新宿駅より徒歩8分</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3>所在地</h3>
+              <ul class="list">
+                <li><span class="highlight">住所：</span> 東京都新宿区歌舞伎町1-24-3浜野産業ビル5階</li>
+                <li><span class="highlight">エリア：</span> 新宿・歌舞伎町</li>
+                <li><span class="highlight">在籍・ご予約・詳細など：</span> <a href="https://www.cityheaven.net/tokyo/A1304/A130401/barubora/" target="_blank" rel="noopener noreferrer">CityHeaven</a></li>
+              </ul>
+              <div class="sub-cta">
+                <a href="https://www.cityheaven.net/tokyo/A1304/A130401/barubora/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">公式掲載を見る</a>
+              </div>
+            </div>
           </div>
 
-          <div class="card">
-            <h3>所在地</h3>
-            <ul class="list">
-              <li><span class="highlight">住所：</span> 東京都新宿区歌舞伎町1-24-3浜野産業ビル5階</li>
-              <li><span class="highlight">エリア：</span> 新宿・歌舞伎町</li>
-              <li><span class="highlight">在籍・ご予約・詳細など：</span> <a href="https://www.cityheaven.net/tokyo/A1304/A130401/barubora/" target="_blank" rel="noopener noreferrer">CityHeaven</a></li>
-            </ul>
+          <div class="card" style="display:flex; flex-direction:column; justify-content:center;">
+            <h3 style="font-size:1.15rem;">BARUBOLA SHINJUKU</h3>
+            <p style="margin-bottom:14px;">
+              華やかさ、視認性、導線の分かりやすさを重視した構成で、初めての方でも迷わず情報を確認できるようにしています。
+            </p>
+            <p>
+              ご予約・在籍確認・各種SNS・アクセスまで、このページからスムーズにご覧いただけます。
+            </p>
           </div>
         </div>
       </div>
@@ -695,6 +946,7 @@
         <div class="section-head">
           <span class="mini">ACCESS</span>
           <h2>アクセス</h2>
+          <p>位置情報もひと目で確認できるよう、大きく見やすく配置しています。</p>
         </div>
 
         <div class="card map-card">
@@ -710,7 +962,7 @@
         </div>
 
         <div style="text-align:center; margin-top:16px;">
-          <a href="https://www.google.com/maps?q=東京都新宿区歌舞伎町1-24-3浜野産業ビル" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+          <a href="https://www.google.com/maps?q=東京都新宿区歌舞伎町1-24-3浜野産業ビル" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
             Googleマップで開く
           </a>
         </div>
@@ -722,6 +974,7 @@
         <div class="section-head">
           <span class="mini">LINK</span>
           <h2>SNS・各種リンク</h2>
+          <p>公式SNS・求人LINE・掲載ページへ、ここからすぐアクセスできます。</p>
         </div>
 
         <div class="grid-3">
@@ -778,15 +1031,31 @@
 
     <section id="official">
       <div class="container">
-        <div class="cta-box">
-          <div class="section-head" style="margin-bottom:18px;">
-            <span class="mini">OFFICIAL</span>
-            <h2>在籍・ご予約・詳細などはこちら</h2>
+        <div class="official-wrap">
+          <div class="cta-box">
+            <div class="section-head" style="margin-bottom:18px; text-align:left;">
+              <span class="mini">OFFICIAL</span>
+              <h2>在籍・ご予約・詳細などはこちら</h2>
+            </div>
+            <p>
+              公式掲載ページより、在籍情報・ご予約・各種詳細などをご確認いただけます。
+            </p>
+
+            <div class="hero-actions">
+              <a href="https://www.cityheaven.net/tokyo/A1304/A130401/barubora/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">公式掲載ページへ進む</a>
+              <a href="tel:0332050011" class="btn btn-secondary">電話する</a>
+            </div>
           </div>
 
-          <div class="hero-actions">
-            <a href="https://www.cityheaven.net/tokyo/A1304/A130401/barubora/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">公式掲載ページへ進む</a>
-            <a href="tel:0332050011" class="btn btn-secondary">電話する</a>
+          <div class="official-side">
+            <div class="mini-card">
+              <h3>ご来店前の確認</h3>
+              <p>アクセス・営業時間・在籍情報など、気になる内容を事前にご確認いただけます。</p>
+            </div>
+            <div class="mini-card">
+              <h3>各種SNSも掲載</h3>
+              <p>Instagram・YouTube・X・TikTokなど、最新の発信もまとめてご覧いただけます。</p>
+            </div>
           </div>
         </div>
       </div>
