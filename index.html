@@ -9,16 +9,19 @@
   <link rel="apple-touch-icon" href="icon.jpg" />
   <style>
     :root {
-      --bg: #070708;
-      --panel: rgba(255,255,255,0.04);
-      --panel-border: rgba(212,175,55,0.24);
-      --gold: #d4af37;
-      --gold-strong: #f0d36d;
-      --text: #f4efe5;
-      --muted: #c7bead;
-      --line: rgba(255,255,255,0.08);
-      --shadow: 0 14px 40px rgba(0,0,0,0.42);
-      --radius: 20px;
+      --bg: #f6f3ef;
+      --bg-soft: #fbf8f5;
+      --ink: #1e2430;
+      --ink-light: #566072;
+      --line: rgba(30, 36, 48, 0.10);
+      --navy: #273449;
+      --navy-deep: #182230;
+      --rose: #a97d86;
+      --rose-soft: #d9c1c7;
+      --pearl: #fffdf9;
+      --card: rgba(255,255,255,0.75);
+      --shadow: 0 18px 45px rgba(23, 28, 38, 0.10);
+      --radius: 24px;
       --max: 1180px;
     }
 
@@ -34,15 +37,14 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
-      color: var(--text);
+      color: var(--ink);
       background:
-        radial-gradient(circle at top right, rgba(212,175,55,0.10), transparent 30%),
-        radial-gradient(circle at top left, rgba(255,192,203,0.06), transparent 22%),
-        linear-gradient(180deg, #060607 0%, #0c0c10 45%, #09090b 100%);
-      line-height: 1.7;
+        radial-gradient(circle at 8% 12%, rgba(169,125,134,0.12), transparent 24%),
+        radial-gradient(circle at 92% 18%, rgba(39,52,73,0.08), transparent 20%),
+        linear-gradient(180deg, #fcfaf7 0%, #f4f0eb 48%, #efe8e2 100%);
+      line-height: 1.75;
       letter-spacing: 0.02em;
       overflow-x: hidden;
-      position: relative;
     }
 
     a {
@@ -61,54 +63,13 @@
       margin: 0 auto;
     }
 
-    /* 桜 */
-    .sakura-layer {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 1;
-    }
-
-    .petal {
-      position: absolute;
-      top: -10vh;
-      width: 16px;
-      height: 16px;
-      background: radial-gradient(circle at 30% 30%, #fff8fb 0%, #ffc8dc 45%, #f59fbe 100%);
-      border-radius: 70% 30% 70% 30%;
-      opacity: 0.75;
-      box-shadow: 0 0 10px rgba(255, 180, 210, 0.20);
-      animation-name: sakuraFall;
-      animation-timing-function: linear;
-      animation-iteration-count: infinite;
-    }
-
-    .petal::after {
-      content: "";
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      right: -1px;
-      top: 4px;
-      background: rgba(255,255,255,0.30);
-      border-radius: 50%;
-    }
-
-    @keyframes sakuraFall {
-      0% {
-        transform: translate3d(0, -10vh, 0) rotate(0deg);
-      }
-      100% {
-        transform: translate3d(140px, 115vh, 0) rotate(360deg);
-      }
-    }
-
     .opening-screen {
       position: fixed;
       inset: 0;
       z-index: 9999;
-      background: #000;
+      background:
+        linear-gradient(135deg, rgba(24,34,48,0.96), rgba(42,56,76,0.92)),
+        radial-gradient(circle at center, rgba(255,255,255,0.10), transparent 40%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -116,12 +77,38 @@
       overflow: hidden;
     }
 
+    .opening-screen::before,
+    .opening-screen::after {
+      content: "";
+      position: absolute;
+      width: 42vw;
+      height: 42vw;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.28;
+      z-index: 0;
+    }
+
+    .opening-screen::before {
+      top: -10vw;
+      left: -8vw;
+      background: rgba(217,193,199,0.40);
+    }
+
+    .opening-screen::after {
+      bottom: -12vw;
+      right: -8vw;
+      background: rgba(255,255,255,0.18);
+    }
+
     .opening-screen img {
+      position: relative;
+      z-index: 1;
       width: 100vw;
       height: 100vh;
       object-fit: contain;
       object-position: center center;
-      background: #000;
+      background: transparent;
     }
 
     @keyframes openingFadeOut {
@@ -140,13 +127,13 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      backdrop-filter: blur(14px);
-      background: rgba(8,8,10,0.74);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      backdrop-filter: blur(18px);
+      background: rgba(252,250,247,0.72);
+      border-bottom: 1px solid rgba(30,36,48,0.07);
     }
 
     .header-inner {
-      min-height: 74px;
+      min-height: 78px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -160,12 +147,13 @@
     }
 
     .brand img {
-      width: 48px;
-      height: 48px;
+      width: 50px;
+      height: 50px;
       object-fit: cover;
       border-radius: 50%;
-      border: 1px solid rgba(212,175,55,0.35);
-      box-shadow: 0 0 18px rgba(212,175,55,0.18);
+      border: 1px solid rgba(39,52,73,0.14);
+      box-shadow: 0 10px 24px rgba(39,52,73,0.12);
+      background: #fff;
     }
 
     .brand-text {
@@ -176,22 +164,22 @@
 
     .brand-title {
       font-size: 1rem;
-      color: var(--gold);
-      letter-spacing: 0.18em;
+      color: var(--navy);
+      letter-spacing: 0.16em;
       font-weight: 800;
     }
 
     .brand-sub {
       font-size: 0.78rem;
-      color: var(--muted);
+      color: var(--ink-light);
     }
 
     .menu-btn {
       display: none;
-      background: transparent;
-      border: 1px solid rgba(212,175,55,0.38);
-      color: var(--gold);
-      border-radius: 10px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(39,52,73,0.12);
+      color: var(--navy);
+      border-radius: 12px;
       padding: 10px 12px;
       cursor: pointer;
     }
@@ -207,22 +195,74 @@
     }
 
     .nav a {
-      font-size: 0.92rem;
-      color: var(--muted);
+      font-size: 0.93rem;
+      color: var(--ink-light);
       transition: 0.2s ease;
+      position: relative;
+    }
+
+    .nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0;
+      height: 1.5px;
+      background: linear-gradient(90deg, var(--rose), var(--navy));
+      transition: 0.25s ease;
     }
 
     .nav a:hover {
-      color: var(--gold);
+      color: var(--navy);
+    }
+
+    .nav a:hover::after {
+      width: 100%;
     }
 
     .hero {
-      padding: 92px 0 64px;
+      padding: 88px 0 68px;
+    }
+
+    .hero-shell {
       position: relative;
-      z-index: 2;
+      overflow: hidden;
+      border-radius: 34px;
+      padding: 42px 28px 30px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.84), rgba(255,255,255,0.55)),
+        linear-gradient(180deg, rgba(217,193,199,0.08), rgba(39,52,73,0.04));
+      border: 1px solid rgba(255,255,255,0.65);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-shell::before {
+      content: "";
+      position: absolute;
+      top: -120px;
+      right: -90px;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(169,125,134,0.16), transparent 65%);
+      filter: blur(10px);
+    }
+
+    .hero-shell::after {
+      content: "";
+      position: absolute;
+      bottom: -120px;
+      left: -90px;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(39,52,73,0.10), transparent 68%);
+      filter: blur(12px);
     }
 
     .hero-grid {
+      position: relative;
+      z-index: 1;
       display: grid;
       grid-template-columns: 1fr;
       gap: 28px;
@@ -231,25 +271,26 @@
 
     .eyebrow {
       display: inline-block;
-      color: #f3b8cf;
+      color: var(--rose);
       font-size: 0.8rem;
-      letter-spacing: 0.22em;
+      letter-spacing: 0.24em;
       text-transform: uppercase;
       margin-bottom: 16px;
+      font-weight: 700;
     }
 
     .hero h1 {
-      font-size: clamp(2.2rem, 4.4vw, 4.8rem);
-      line-height: 1.1;
-      letter-spacing: 0.06em;
+      font-size: clamp(2.2rem, 4.6vw, 5rem);
+      line-height: 1.06;
+      letter-spacing: 0.08em;
       font-weight: 900;
       margin-bottom: 18px;
-      text-shadow: 0 4px 20px rgba(0,0,0,0.4);
       text-align: center;
+      color: var(--navy-deep);
     }
 
     .hero p {
-      color: var(--muted);
+      color: var(--ink-light);
       max-width: 760px;
       margin: 0 auto 28px;
       font-size: 1rem;
@@ -264,36 +305,36 @@
     }
 
     .btn {
-      min-height: 50px;
-      padding: 0 22px;
+      min-height: 52px;
+      padding: 0 24px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       border-radius: 999px;
       font-weight: 800;
-      transition: 0.2s ease;
+      transition: 0.22s ease;
       border: 1px solid transparent;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, #f3d97d 0%, #b8860b 100%);
-      color: #111;
-      box-shadow: 0 8px 24px rgba(212,175,55,0.24);
+      background: linear-gradient(135deg, #2a3950 0%, #62718a 100%);
+      color: #fff;
+      box-shadow: 0 12px 26px rgba(39,52,73,0.18);
     }
 
     .btn-primary:hover {
       transform: translateY(-1px);
-      box-shadow: 0 12px 28px rgba(212,175,55,0.30);
+      box-shadow: 0 16px 30px rgba(39,52,73,0.24);
     }
 
     .btn-secondary {
-      border-color: rgba(212,175,55,0.34);
-      color: var(--gold);
-      background: rgba(255,255,255,0.02);
+      border-color: rgba(39,52,73,0.16);
+      color: var(--navy);
+      background: rgba(255,255,255,0.58);
     }
 
     .btn-secondary:hover {
-      background: rgba(212,175,55,0.08);
+      background: rgba(255,255,255,0.86);
     }
 
     .hero-image-wrap {
@@ -304,11 +345,20 @@
       width: 100%;
       max-width: 980px;
       margin: 0 auto;
-      border-radius: 28px;
+      border-radius: 30px;
       overflow: hidden;
-      border: 1px solid rgba(212,175,55,0.18);
-      box-shadow: var(--shadow);
-      background: #121216;
+      border: 1px solid rgba(39,52,73,0.10);
+      box-shadow: 0 22px 50px rgba(24,34,48,0.14);
+      background: #fff;
+      position: relative;
+    }
+
+    .hero-main-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.00), rgba(24,34,48,0.06));
+      pointer-events: none;
     }
 
     .hero-main-image img {
@@ -318,9 +368,7 @@
     }
 
     section {
-      padding: 58px 0;
-      position: relative;
-      z-index: 2;
+      padding: 60px 0;
     }
 
     .section-head {
@@ -329,16 +377,18 @@
 
     .section-head .mini {
       display: inline-block;
-      color: var(--gold);
+      color: var(--rose);
       font-size: 0.78rem;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       margin-bottom: 10px;
+      font-weight: 700;
     }
 
     .section-head h2 {
-      font-size: clamp(1.55rem, 2.8vw, 2.4rem);
+      font-size: clamp(1.55rem, 2.8vw, 2.5rem);
       margin-bottom: 8px;
+      color: var(--navy-deep);
     }
 
     .grid-2 {
@@ -354,23 +404,23 @@
     }
 
     .card {
-      background: var(--panel);
-      border: 1px solid var(--panel-border);
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.70);
       border-radius: var(--radius);
-      padding: 24px;
+      padding: 26px;
       box-shadow: var(--shadow);
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(14px);
     }
 
     .card h3 {
       font-size: 1.08rem;
       margin-bottom: 10px;
-      color: var(--text);
+      color: var(--navy);
     }
 
     .card p,
     .card li {
-      color: var(--muted);
+      color: var(--ink-light);
       font-size: 0.96rem;
     }
 
@@ -391,8 +441,27 @@
     }
 
     .highlight {
-      color: var(--gold);
+      color: var(--navy);
       font-weight: 800;
+    }
+
+    .map-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .map-card iframe {
+      display: block;
+      width: 100%;
+      height: 340px;
+      border: 0;
+    }
+
+    .access-note {
+      margin-top: 16px;
+      text-align: center;
+      color: var(--ink-light);
+      font-size: 0.95rem;
     }
 
     .link-card {
@@ -400,44 +469,61 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      min-height: 78px;
+      min-height: 84px;
+      transition: 0.22s ease;
+    }
+
+    .link-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px rgba(23,28,38,0.12);
     }
 
     .link-card span {
-      color: var(--muted);
+      color: var(--ink-light);
       font-size: 0.92rem;
     }
 
     .link-card strong {
       display: block;
-      color: var(--text);
+      color: var(--navy);
       margin-bottom: 4px;
       font-size: 1rem;
     }
 
     .link-arrow {
-      color: var(--gold);
+      color: var(--rose);
       font-size: 1.1rem;
       flex-shrink: 0;
     }
 
     .cta-box {
+      position: relative;
+      overflow: hidden;
       background:
-        linear-gradient(135deg, rgba(212,175,55,0.12), rgba(255,192,203,0.05)),
-        rgba(255,255,255,0.03);
-      border: 1px solid var(--panel-border);
-      border-radius: 24px;
-      padding: 28px;
+        linear-gradient(135deg, rgba(255,255,255,0.82), rgba(255,255,255,0.58)),
+        linear-gradient(135deg, rgba(169,125,134,0.10), rgba(39,52,73,0.07));
+      border: 1px solid rgba(255,255,255,0.72);
+      border-radius: 28px;
+      padding: 30px;
       box-shadow: var(--shadow);
     }
 
+    .cta-box::before {
+      content: "";
+      position: absolute;
+      top: -80px;
+      right: -50px;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(169,125,134,0.14), transparent 68%);
+    }
+
     .footer {
-      border-top: 1px solid rgba(255,255,255,0.06);
+      border-top: 1px solid rgba(30,36,48,0.08);
       padding: 34px 0 48px;
-      color: var(--muted);
+      color: var(--ink-light);
       font-size: 0.9rem;
-      position: relative;
-      z-index: 2;
     }
 
     .footer-inner {
@@ -470,8 +556,8 @@
         top: calc(100% + 10px);
         min-width: 220px;
         flex-direction: column;
-        background: rgba(10,10,12,0.96);
-        border: 1px solid rgba(212,175,55,0.24);
+        background: rgba(255,252,249,0.96);
+        border: 1px solid rgba(39,52,73,0.10);
         border-radius: 14px;
         padding: 14px;
         box-shadow: var(--shadow);
@@ -482,15 +568,23 @@
       }
 
       .header-inner {
-        min-height: 66px;
+        min-height: 68px;
       }
 
       .brand-title {
         font-size: 0.92rem;
       }
 
+      .hero-shell {
+        padding: 34px 18px 24px;
+      }
+
       .hero h1 {
-        line-height: 1.16;
+        line-height: 1.14;
+      }
+
+      .map-card iframe {
+        height: 300px;
       }
     }
 
@@ -502,14 +596,12 @@
         max-height: 100vh;
         object-fit: contain;
         object-position: center center;
-        background: #000;
+        background: transparent;
       }
     }
   </style>
 </head>
 <body>
-  <div class="sakura-layer" id="sakuraLayer"></div>
-
   <div class="opening-screen" id="openingScreen">
     <img src="opening.jpg" alt="BARUBOLA OPENING">
   </div>
@@ -520,7 +612,7 @@
         <img src="icon.jpg" alt="BARUBOLA ICON">
         <div class="brand-text">
           <div class="brand-title">BARUBOLA SHINJUKU</div>
-          <div class="brand-sub">Premium Guide Page</div>
+          <div class="brand-sub">Private Luxury Guide</div>
         </div>
       </div>
 
@@ -539,24 +631,29 @@
 
   <main id="top">
     <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <div style="text-align:center;">
-            <span class="eyebrow">BARUBOLA PREMIUM START</span>
-          </div>
-          <h1>BARUBOLA<br>SHINJUKU</h1>
-          <p>
-            新宿で長く愛され続けるBARUBOLAの情報を、見やすくまとめたご案内ページです。
-          </p>
+      <div class="container">
+        <div class="hero-shell">
+          <div class="hero-grid">
+            <div>
+              <div style="text-align:center;">
+                <span class="eyebrow">SHINJUKU PRIVATE LOUNGE</span>
+              </div>
+              <h1>BARUBOLA<br>SHINJUKU</h1>
+              <p>
+                派手さではなく、落ち着きと品を大切に。<br>
+                新宿・歌舞伎町で、静かに記憶に残る時間へ。
+              </p>
 
-          <div class="hero-actions">
-            <a href="https://www.cityheaven.net/tokyo/A1304/A130401/barubora/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">詳細を見る</a>
-            <a href="#links" class="btn btn-secondary">SNS・各種リンク</a>
-          </div>
+              <div class="hero-actions">
+                <a href="https://www.cityheaven.net/tokyo/A1304/A130401/barubora/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">詳細を見る</a>
+                <a href="#links" class="btn btn-secondary">SNS・各種リンク</a>
+              </div>
 
-          <div class="hero-image-wrap">
-            <div class="hero-main-image">
-              <img src="main.jpg" alt="バルボラ新宿">
+              <div class="hero-image-wrap">
+                <div class="hero-main-image">
+                  <img src="main.jpg" alt="バルボラ新宿">
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -586,7 +683,7 @@
             <ul class="list">
               <li><span class="highlight">住所：</span> 東京都新宿区歌舞伎町1-24-3浜野産業ビル5階</li>
               <li><span class="highlight">エリア：</span> 新宿・歌舞伎町</li>
-              <li><span class="highlight">在籍・ご予約・詳細など：</span> <a href="https://www.cityheaven.net/tokyo/A1304/A130401/barubora/" target="_blank" rel="noopener noreferrer">シティヘブン</a></li>
+              <li><span class="highlight">在籍・ご予約・詳細など：</span> <a href="https://www.cityheaven.net/tokyo/A1304/A130401/barubora/" target="_blank" rel="noopener noreferrer">CityHeaven</a></li>
             </ul>
           </div>
         </div>
@@ -594,38 +691,28 @@
     </section>
 
     <section id="access">
-  <div class="container">
-    <div class="section-head">
-      <span class="mini">ACCESS</span>
-      <h2>アクセス</h2>
-    </div>
+      <div class="container">
+        <div class="section-head">
+          <span class="mini">ACCESS</span>
+          <h2>アクセス</h2>
+        </div>
 
-    <div class="card" style="padding:0; overflow:hidden;">
-      <iframe 
-        src="https://www.google.com/maps?q=東京都新宿区歌舞伎町1-24-3浜野産業ビル&output=embed"
-        width="100%" 
-        height="320" 
-        style="border:0;"
-        allowfullscreen="" 
-        loading="lazy">
-      </iframe>
-    </div>
+        <div class="card map-card">
+          <iframe
+            src="https://www.google.com/maps?q=東京都新宿区歌舞伎町1-24-3浜野産業ビル&output=embed"
+            allowfullscreen=""
+            loading="lazy">
+          </iframe>
+        </div>
 
-    <div style="margin-top:16px; text-align:center; color:var(--muted); font-size:0.95rem;">
-      JR新宿駅より徒歩約8分 / 歌舞伎町エリア
-    </div>
-  </div>
-</section>
+        <div class="access-note">
+          JR新宿駅より徒歩約8分 / 歌舞伎町エリア
+        </div>
 
-          <div class="card">
-            <h3>公式掲載ページ</h3>
-            <p style="margin-bottom:16px;">
-              在籍・ご予約・詳細などは下記からご確認ください。
-            </p>
-            <a href="https://www.cityheaven.net/tokyo/A1304/A130401/barubora/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-              シティヘブンを見る
-            </a>
-          </div>
+        <div style="text-align:center; margin-top:16px;">
+          <a href="https://www.google.com/maps?q=東京都新宿区歌舞伎町1-24-3浜野産業ビル" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            Googleマップで開く
+          </a>
         </div>
       </div>
     </section>
@@ -681,7 +768,7 @@
           <a class="card link-card" href="https://www.cityheaven.net/tokyo/A1304/A130401/barubora/" target="_blank" rel="noopener noreferrer">
             <div>
               <strong>在籍・ご予約・詳細など</strong>
-              <span>シティヘブン</span>
+              <span>CityHeaven</span>
             </div>
             <div class="link-arrow">↗</div>
           </a>
@@ -717,7 +804,6 @@
     const menuBtn = document.getElementById("menuBtn");
     const nav = document.getElementById("nav");
     const openingScreen = document.getElementById("openingScreen");
-    const sakuraLayer = document.getElementById("sakuraLayer");
 
     menuBtn.addEventListener("click", () => {
       nav.classList.toggle("show");
@@ -732,23 +818,6 @@
     setTimeout(() => {
       openingScreen.style.display = "none";
     }, 4000);
-
-    function createPetals() {
-      const count = window.innerWidth < 768 ? 28 : 46;
-
-      for (let i = 0; i < count; i++) {
-        const petal = document.createElement("span");
-        petal.className = "petal";
-        petal.style.left = Math.random() * 100 + "vw";
-        petal.style.animationDuration = (7 + Math.random() * 8) + "s";
-        petal.style.animationDelay = (Math.random() * 10) + "s";
-        petal.style.opacity = 0.35 + Math.random() * 0.45;
-        petal.style.transform = `scale(${0.7 + Math.random() * 0.9}) rotate(${Math.random() * 360}deg)`;
-        sakuraLayer.appendChild(petal);
-      }
-    }
-
-    createPetals();
   </script>
 </body>
 </html>
